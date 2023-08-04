@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple Animations</title>
+  <style>
+    .animation {
+      width: 200px;
+      height: 140px;
+      background-size: cover;
+      margin: 10px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+<!-- Создаем 10 элементов для анимаций -->
+<div class="animation" id="animation1"></div>
+<div class="animation" id="animation2"></div>
+<div class="animation" id="animation3"></div>
+<div class="animation" id="animation4"></div>
+<div class="animation" id="animation5"></div>
+<div class="animation" id="animation6"></div>
+<div class="animation" id="animation7"></div>
+<div class="animation" id="animation8"></div>
+<div class="animation" id="animation9"></div>
+<div class="animation" id="animation10"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+<script>
+  const numberOfFrames = 26;
+  const frameDelay = 40;
+  const frameUrls = [
+    "https://i.postimg.cc/rmSXSdF8/Explosion-Test-00001-min.png",
+    "https://i.postimg.cc/wxQYMsG2/Explosion-Test-00002-min.png",
+    "https://i.postimg.cc/L64K18dp/Explosion-Test-00003-min.png",
+    "https://i.postimg.cc/qMmfXH0C/Explosion-Test-00004-min.png",
+    "https://i.postimg.cc/YCj5dDqD/Explosion-Test-00005-min.png",
+    "https://i.postimg.cc/vBwCHQ7C/Explosion-Test-00006-min.png",
+    "https://i.postimg.cc/mrH0sc9Q/Explosion-Test-00007-min.png",
+    "https://i.postimg.cc/L87rwkJ9/Explosion-Test-00008-min.png",
+    "https://i.postimg.cc/G2PV4Zqt/Explosion-Test-00009-min.png",
+    "https://i.postimg.cc/kGnZKfpc/Explosion-Test-00010-min.png",
+    "https://i.postimg.cc/6qYP0CsN/Explosion-Test-00011-min.png",
+    "https://i.postimg.cc/bNwWvVbY/Explosion-Test-00012-min.png",
+    "https://i.postimg.cc/qBLW4HNZ/Explosion-Test-00013-min.png",
+    "https://i.postimg.cc/fTqFS7jc/Explosion-Test-00014-min.png",
+    "https://i.postimg.cc/y8JGmJvw/Explosion-Test-00015-min.png",
+    "https://i.postimg.cc/htH5pSYh/Explosion-Test-00016-min.png",
+    "https://i.postimg.cc/KYBsW6Xf/Explosion-Test-00017-min.png",
+    "https://i.postimg.cc/rmTY2fMk/Explosion-Test-00018-min.png",
+    "https://i.postimg.cc/TwcNdn3W/Explosion-Test-00019-min.png",
+    "https://i.postimg.cc/QC465s58/Explosion-Test-00020-min.png",
+    "https://i.postimg.cc/rsFnKzDZ/Explosion-Test-00021-min.png",
+    "https://i.postimg.cc/ZYVsXPQG/Explosion-Test-00022-min.png",
+    "https://i.postimg.cc/m2kp4zft/Explosion-Test-00023-min.png",
+    "https://i.postimg.cc/13NWgkzS/Explosion-Test-00024-min.png",
+    "https://i.postimg.cc/YqPnCrM8/Explosion-Test-00025-min.png",
+    "https://i.postimg.cc/fbn8Y839/Explosion-Test-00026-min.png"
+  ];
+
+  function preloadImages(urls, callback) {
+    let loadedImages = 0;
+    const images = [];
+
+    urls.forEach((url, index) => {
+      const img = new Image();
+      img.onload = () => {
+        loadedImages++;
+        if (loadedImages === urls.length) {
+          callback(images);
+        }
+      };
+      img.src = url;
+      images[index] = img;
+    });
+  }
+
+  function startAnimation(elementId, images) {
+    const animation = gsap.timeline();
+    let currentFrame = 0;
+
+    function changeFrame() {
+      gsap.set(`#${elementId}`, { backgroundImage: `url(${images[currentFrame].src})` });
+      currentFrame++;
+      if (currentFrame < numberOfFrames) {
+        setTimeout(changeFrame, frameDelay);
+      }
+    }
+
+    changeFrame();
+  }
+
+  setInterval(() => {
+    preloadImages(frameUrls, function(images) {
+      startAnimation("animation1", images);
+      startAnimation("animation2", images);
+      startAnimation("animation3", images);
+      startAnimation("animation4", images);
+      startAnimation("animation5", images);
+      startAnimation("animation6", images);
+      startAnimation("animation7", images);
+      startAnimation("animation8", images);
+      startAnimation("animation9", images);
+      startAnimation("animation10", images);
+  });
+}, 4000)
+
+</script>
+
+</body>
+</html>
